@@ -6,6 +6,13 @@ document.getElementById("all-tab").addEventListener("click", function () {
   addClassByID("rejected-jobs", "hidden");
 
   removeClassByID("all-jobs", "hidden");
+
+  addClassByID("all-tab", "btn-dash");
+  addClassByID("interview-tab", "btn-dash");
+  addClassByID("rejected-tab", "btn-dash");
+
+
+  removeClassByID("all-tab", "btn-dash");
 });
 
 // Interview Tab Button Related
@@ -16,6 +23,14 @@ document.getElementById("interview-tab").addEventListener("click", function () {
   addClassByID("rejected-jobs", "hidden");
 
   removeClassByID("interview-jobs", "hidden");
+
+  addClassByID("all-tab", "btn-dash");
+  addClassByID("interview-tab", "btn-dash");
+  addClassByID("rejected-tab", "btn-dash");
+
+  removeClassByID("interview-tab", "btn-dash");
+
+  
 });
 
 // Rejected Tab Button Related
@@ -26,6 +41,12 @@ document.getElementById("rejected-tab").addEventListener("click", function () {
   addClassByID("rejected-jobs", "hidden");
 
   removeClassByID("rejected-jobs", "hidden");
+
+  addClassByID("all-tab", "btn-dash");
+  addClassByID("interview-tab", "btn-dash");
+  addClassByID("rejected-tab", "btn-dash");
+
+  removeClassByID("rejected-tab", "btn-dash");
 });
 
 // Interview Button Related
