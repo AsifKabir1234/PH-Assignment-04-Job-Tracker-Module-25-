@@ -49,98 +49,99 @@ document.getElementById("rejected-tab").addEventListener("click", function () {
   removeClassByID("rejected-tab", "btn-dash");
 });
 
-// Interview Button Related
 
-document
-  .getElementById("interview-button")
-  .addEventListener("click", function () {
-    // Getting the parent of interview button
-    const interviewButtonElement = document.getElementById("interview-button");
+// Interview Button Related Updated
+const interviewButtonElements = document.querySelectorAll(".interview-button")
 
-    const parentInterview = interviewButtonElement.parentElement.parentElement;
+for(const interviewButtonElement of interviewButtonElements){
+    interviewButtonElement.addEventListener("click", function(){
+        const parentInterview = interviewButtonElement.parentElement.parentElement;
 
-    const currentStatusElement = parentInterview.querySelector(".job-status");
+        const currentStatusElement = parentInterview.querySelector(".job-status");
 
-    if (currentStatusElement.innerText === "NOT APPLIED") {
-      currentStatusElement.innerText = "INTERVIEW";
+        if(currentStatusElement.innerText === "NOT APPLIED"){
+            currentStatusElement.innerText = "INTERVIEW";
 
-      // Updating in InterView Number in Header
+            // Updating in InterView Number in Header
+            const currentInterviewNumber = getTextByID("interview-number");
 
-      const currentInterviewNumber = getTextByID("interview-number");
-      const newInterviewNumber = Number(currentInterviewNumber) + 1;
+            const newInterviewNumber = Number(currentInterviewNumber) + 1;
 
-      setTextByID("interview-number", newInterviewNumber);
+            setTextByID("interview-number", newInterviewNumber);
 
-      // Disable the interview button to handle the multiple click
-      document.getElementById("interview-button").disabled = true;
+            // Disable the interview button to handle the multiple click
+            interviewButtonElement.disabled = true;
+        }
+        else{
+            currentStatusElement.innerText = "INTERVIEW";
 
-      //   console.log("Working");
-    } else {
-      currentStatusElement.innerText = "INTERVIEW";
+            // Updatting both interview number and rejected number
+            const currentInterviewNumber = getTextByID("interview-number");
+            const newInterviewNumber = Number(currentInterviewNumber) + 1;
 
-      // Updatting both interview number and rejected number
+            const currentRejectedNumber = getTextByID("rejected-number");
+            const newRejectedNumber = Number(currentRejectedNumber) - 1;
 
-      const currentInterviewNumber = getTextByID("interview-number");
-      const newInterviewNumber = Number(currentInterviewNumber) + 1;
+            setTextByID("interview-number", newInterviewNumber);
+            setTextByID("rejected-number", newRejectedNumber);
 
-      const currentRejectedNumber = getTextByID("rejected-number");
-      const newRejectedNumber = Number(currentRejectedNumber) - 1;
+            // Disable the button and active another to handle multiple click problems
 
-      setTextByID("interview-number", newInterviewNumber);
-      setTextByID("rejected-number", newRejectedNumber);
+            interviewButtonElement.disabled = true;
 
-      // Disable the button and active another to handle multiple click problems
-      document.getElementById("interview-button").disabled = true;
-      document.getElementById("rejected-button").disabled = false;
+            const immediateParent = interviewButtonElement.parentElement;
+            const rejectedButton = immediateParent.querySelector(".rejected-button")
+            rejectedButton.disabled = false;
+        }
+    })
+}
 
-      // console.log("Else is Working");
-    }
-  });
 
-// Rejected Button Related
 
-document
-  .getElementById("rejected-button")
-  .addEventListener("click", function () {
-    const rejectedButtonElement = document.getElementById("rejected-button");
 
-    const parentInterview = rejectedButtonElement.parentElement.parentElement;
+// Rejected Button Related Updated
+const rejectedButtonElements = document.querySelectorAll(".rejected-button")
 
-    const currentStatusElement = parentInterview.querySelector(".job-status");
+for(const rejectedButtonElement of rejectedButtonElements){
+    rejectedButtonElement.addEventListener("click", function(){
+        const parentInterview = rejectedButtonElement.parentElement.parentElement;
 
-    if (currentStatusElement.innerText === "NOT APPLIED") {
-      currentStatusElement.innerText = "REJECTED";
+        const currentStatusElement = parentInterview.querySelector(".job-status");
 
-      // Updating in Rejected Number in Header
+        if(currentStatusElement.innerText === "NOT APPLIED"){
+            currentStatusElement.innerText = "REJECTED";
 
-      const currentRejectedNumber = getTextByID("rejected-number");
-      const newRejectedNumber = Number(currentRejectedNumber) + 1;
+            // Updating in Rejected Number in Header
 
-      setTextByID("rejected-number", newRejectedNumber);
+            const currentRejectedNumber = getTextByID("rejected-number");
+            const newRejectedNumber = Number(currentRejectedNumber) + 1;
 
-      // Disable the rejected button to handle the multiple click
-      document.getElementById("rejected-button").disabled = true;
+            setTextByID("rejected-number", newRejectedNumber);
 
-      //   console.log("Working");
-    } else {
-      currentStatusElement.innerText = "REJECTED";
+            // Disable the rejected button to handle the multiple click
+            rejectedButtonElement.disabled = true;
+        }
+        else{
+            currentStatusElement.innerText = "REJECTED";
 
-      // Updatting both interview number and rejected number
+            // Updatting both interview number and rejected number
+            const currentInterviewNumber = getTextByID("interview-number");
+            const newInterviewNumber = Number(currentInterviewNumber) - 1;
 
-      const currentInterviewNumber = getTextByID("interview-number");
-      const newInterviewNumber = Number(currentInterviewNumber) - 1;
+            const currentRejectedNumber = getTextByID("rejected-number");
+            const newRejectedNumber = Number(currentRejectedNumber) + 1;
 
-      const currentRejectedNumber = getTextByID("rejected-number");
-      const newRejectedNumber = Number(currentRejectedNumber) + 1;
+            setTextByID("interview-number", newInterviewNumber);
+            setTextByID("rejected-number", newRejectedNumber);
 
-      setTextByID("interview-number", newInterviewNumber);
-      setTextByID("rejected-number", newRejectedNumber);
+            // Disable the button and active another to handle multiple click problems
 
-      // Disable the button and active another to handle multiple click problems
+            const immediateParent = rejectedButtonElement.parentElement;
+            const interviewButton = immediateParent.querySelector(".interview-button")
+            interviewButton.disabled = false;
+            rejectedButtonElement.disabled = true;
+        }
+    })
+}
 
-      document.getElementById("interview-button").disabled = false;
-      document.getElementById("rejected-button").disabled = true;
 
-      // console.log("Else is Working");
-    }
-  });
