@@ -1,33 +1,37 @@
 // All Tab Button Related
 
 document.getElementById("all-tab").addEventListener("click", function () {
+  // Hidding the others tabs content so that only all-jobs section show
   addClassByID("interview-jobs", "hidden");
   addClassByID("rejected-jobs", "hidden");
 
   removeClassByID("all-jobs", "hidden");
 
+  // Adding btn-dash class to all and remove from the all-tab so that it looks blue(primary) - Basically it will show which tab are active - btn dash make bg white
   addClassByID("all-tab", "btn-dash");
   addClassByID("interview-tab", "btn-dash");
   addClassByID("rejected-tab", "btn-dash");
 
   removeClassByID("all-tab", "btn-dash");
 
+  // Get all the job-card and removing the hidden class from all so that all card appear in all-tab
   const jobCards = document.querySelectorAll(".job-card");
 
-  for(const jobCard of jobCards){
+  for (const jobCard of jobCards) {
     jobCard.classList.remove("hidden");
   }
-
-
 });
 
 // Interview Tab Button Related
 
 document.getElementById("interview-tab").addEventListener("click", function () {
+  // Hidding the interview tab and rejected tab (no available offer section) and enable again the interview tab
   addClassByID("interview-jobs", "hidden");
   addClassByID("rejected-jobs", "hidden");
 
   removeClassByID("interview-jobs", "hidden");
+
+  // For looking which button is active now - Adding btn-dash to all and removing from current(interview tab) so that it gets the btn-primay class only -  looks blue/active
 
   addClassByID("all-tab", "btn-dash");
   addClassByID("interview-tab", "btn-dash");
@@ -35,28 +39,29 @@ document.getElementById("interview-tab").addEventListener("click", function () {
 
   removeClassByID("interview-tab", "btn-dash");
 
+  // Only show the interview button clicked card in the interview tab - idea is checking the job status of all card - only interview status will appear in the interview tab
+
   const jobCards = document.querySelectorAll(".job-card");
 
   let counter = 0;
 
-  for(const jobCard of jobCards){
+  for (const jobCard of jobCards) {
     const currentStatusElement = jobCard.querySelector(".job-status");
 
     const currentStatusText = currentStatusElement.innerText;
 
     jobCard.classList.add("hidden");
 
-    if(currentStatusText === "INTERVIEW"){
-        jobCard.classList.remove("hidden");
-        counter = counter + 1;
+    if (currentStatusText === "INTERVIEW") {
+      jobCard.classList.remove("hidden");
+      counter = counter + 1;
     }
   }
 
-  if(counter > 0){
+  // This counter will check if there is at least one card which job status is interview. If there is then it will hide the no jobs available section
+  if (counter > 0) {
     addClassByID("interview-jobs", "hidden");
   }
-
-  
 });
 
 // Rejected Tab Button Related
@@ -77,154 +82,144 @@ document.getElementById("rejected-tab").addEventListener("click", function () {
 
   let counter = 0;
 
-  for(const jobCard of jobCards){
+  for (const jobCard of jobCards) {
     const currentStatusElement = jobCard.querySelector(".job-status");
 
     const currentStatusText = currentStatusElement.innerText;
 
     jobCard.classList.add("hidden");
 
-    if(currentStatusText === "REJECTED"){
-        jobCard.classList.remove("hidden");
-        counter = counter + 1;
+    if (currentStatusText === "REJECTED") {
+      jobCard.classList.remove("hidden");
+      counter = counter + 1;
     }
   }
 
-  if(counter > 0){
+  if (counter > 0) {
     addClassByID("rejected-jobs", "hidden");
   }
-
 });
 
-
 // Interview Button Related Updated
-const interviewButtonElements = document.querySelectorAll(".interview-button")
+const interviewButtonElements = document.querySelectorAll(".interview-button");
 
-for(const interviewButtonElement of interviewButtonElements){
-    interviewButtonElement.addEventListener("click", function(){
-        const parentInterview = interviewButtonElement.parentElement.parentElement;
+for (const interviewButtonElement of interviewButtonElements) {
+  interviewButtonElement.addEventListener("click", function () {
+    const parentInterview = interviewButtonElement.parentElement.parentElement;
 
-        const currentStatusElement = parentInterview.querySelector(".job-status");
+    const currentStatusElement = parentInterview.querySelector(".job-status");
 
-        if(currentStatusElement.innerText === "NOT APPLIED"){
-            currentStatusElement.innerText = "INTERVIEW";
+    if (currentStatusElement.innerText === "NOT APPLIED") {
+      currentStatusElement.innerText = "INTERVIEW";
 
-            // Updating in InterView Number in Header
-            const currentInterviewNumber = getTextByID("interview-number");
+      // Updating in InterView Number in Header
+      const currentInterviewNumber = getTextByID("interview-number");
 
-            const newInterviewNumber = Number(currentInterviewNumber) + 1;
+      const newInterviewNumber = Number(currentInterviewNumber) + 1;
 
-            setTextByID("interview-number", newInterviewNumber);
+      setTextByID("interview-number", newInterviewNumber);
 
-            // Disable the interview button to handle the multiple click
-            interviewButtonElement.disabled = true;
-        }
-        else{
-            currentStatusElement.innerText = "INTERVIEW";
+      // Disable the interview button to handle the multiple click
+      interviewButtonElement.disabled = true;
+    } else {
+      currentStatusElement.innerText = "INTERVIEW";
 
-            const rejectedTab = document.getElementById("rejected-tab");
-            
-            if(!rejectedTab.classList.contains("btn-dash")){
-                parentInterview.classList.add("hidden");
-            }
+      const rejectedTab = document.getElementById("rejected-tab");
 
-            // Updatting both interview number and rejected number
-            const currentInterviewNumber = getTextByID("interview-number");
-            const newInterviewNumber = Number(currentInterviewNumber) + 1;
+      if (!rejectedTab.classList.contains("btn-dash")) {
+        parentInterview.classList.add("hidden");
+      }
 
-            const currentRejectedNumber = getTextByID("rejected-number");
-            const newRejectedNumber = Number(currentRejectedNumber) - 1;
+      // Updatting both interview number and rejected number
+      const currentInterviewNumber = getTextByID("interview-number");
+      const newInterviewNumber = Number(currentInterviewNumber) + 1;
 
-            setTextByID("interview-number", newInterviewNumber);
-            setTextByID("rejected-number", newRejectedNumber);
+      const currentRejectedNumber = getTextByID("rejected-number");
+      const newRejectedNumber = Number(currentRejectedNumber) - 1;
 
-            if(newRejectedNumber === 0){
-              removeClassByID("rejected-jobs", "hidden");
-            }
+      setTextByID("interview-number", newInterviewNumber);
+      setTextByID("rejected-number", newRejectedNumber);
 
-            // Disable the button and active another to handle multiple click problems
+      if (newRejectedNumber === 0) {
+        removeClassByID("rejected-jobs", "hidden");
+      }
 
-            interviewButtonElement.disabled = true;
+      // Disable the button and active another to handle multiple click problems
 
-            const immediateParent = interviewButtonElement.parentElement;
-            const rejectedButton = immediateParent.querySelector(".rejected-button")
-            rejectedButton.disabled = false;
-        }
-    })
+      interviewButtonElement.disabled = true;
+
+      const immediateParent = interviewButtonElement.parentElement;
+      const rejectedButton = immediateParent.querySelector(".rejected-button");
+      rejectedButton.disabled = false;
+    }
+  });
 }
-
-
-
 
 // Rejected Button Related Updated
-const rejectedButtonElements = document.querySelectorAll(".rejected-button")
+const rejectedButtonElements = document.querySelectorAll(".rejected-button");
 
-for(const rejectedButtonElement of rejectedButtonElements){
-    rejectedButtonElement.addEventListener("click", function(){
-        const parentInterview = rejectedButtonElement.parentElement.parentElement;
+for (const rejectedButtonElement of rejectedButtonElements) {
+  rejectedButtonElement.addEventListener("click", function () {
+    const parentInterview = rejectedButtonElement.parentElement.parentElement;
 
-        const currentStatusElement = parentInterview.querySelector(".job-status");
+    const currentStatusElement = parentInterview.querySelector(".job-status");
 
-        if(currentStatusElement.innerText === "NOT APPLIED"){
-            currentStatusElement.innerText = "REJECTED";
+    if (currentStatusElement.innerText === "NOT APPLIED") {
+      currentStatusElement.innerText = "REJECTED";
 
-            // Updating in Rejected Number in Header
+      // Updating in Rejected Number in Header
 
-            const currentRejectedNumber = getTextByID("rejected-number");
-            const newRejectedNumber = Number(currentRejectedNumber) + 1;
+      const currentRejectedNumber = getTextByID("rejected-number");
+      const newRejectedNumber = Number(currentRejectedNumber) + 1;
 
-            setTextByID("rejected-number", newRejectedNumber);
+      setTextByID("rejected-number", newRejectedNumber);
 
-            // Disable the rejected button to handle the multiple click
-            rejectedButtonElement.disabled = true;
-        }
-        else{
-            currentStatusElement.innerText = "REJECTED";
+      // Disable the rejected button to handle the multiple click
+      rejectedButtonElement.disabled = true;
+    } else {
+      currentStatusElement.innerText = "REJECTED";
 
-            const interviewTab = document.getElementById("interview-tab");
+      const interviewTab = document.getElementById("interview-tab");
 
-            if(!interviewTab.classList.contains("btn-dash")){
-                parentInterview.classList.add("hidden");
-            }
+      if (!interviewTab.classList.contains("btn-dash")) {
+        parentInterview.classList.add("hidden");
+      }
 
-            // Updatting both interview number and rejected number
-            const currentInterviewNumber = getTextByID("interview-number");
-            const newInterviewNumber = Number(currentInterviewNumber) - 1;
+      // Updatting both interview number and rejected number
+      const currentInterviewNumber = getTextByID("interview-number");
+      const newInterviewNumber = Number(currentInterviewNumber) - 1;
 
-            const currentRejectedNumber = getTextByID("rejected-number");
-            const newRejectedNumber = Number(currentRejectedNumber) + 1;
+      const currentRejectedNumber = getTextByID("rejected-number");
+      const newRejectedNumber = Number(currentRejectedNumber) + 1;
 
-            setTextByID("interview-number", newInterviewNumber);
-            setTextByID("rejected-number", newRejectedNumber);
+      setTextByID("interview-number", newInterviewNumber);
+      setTextByID("rejected-number", newRejectedNumber);
 
-            if(newInterviewNumber === 0){
-              removeClassByID("interview-jobs", "hidden");
-            }
+      if (newInterviewNumber === 0) {
+        removeClassByID("interview-jobs", "hidden");
+      }
 
-            // Disable the button and active another to handle multiple click problems
+      // Disable the button and active another to handle multiple click problems
 
-            const immediateParent = rejectedButtonElement.parentElement;
-            const interviewButton = immediateParent.querySelector(".interview-button")
-            interviewButton.disabled = false;
-            rejectedButtonElement.disabled = true;
-        }
-
-    })
+      const immediateParent = rejectedButtonElement.parentElement;
+      const interviewButton =
+        immediateParent.querySelector(".interview-button");
+      interviewButton.disabled = false;
+      rejectedButtonElement.disabled = true;
+    }
+  });
 }
-
-
-
 
 // Delte Button Related
 const deleteButtonElements = document.querySelectorAll(".delete-button");
 
-for(const deleteButtonElement of deleteButtonElements){
-  deleteButtonElement.addEventListener("click", function(){
+for (const deleteButtonElement of deleteButtonElements) {
+  deleteButtonElement.addEventListener("click", function () {
     const deleteParent = deleteButtonElement.parentElement.parentElement;
 
     const currentStatusElement = deleteParent.querySelector(".job-status");
 
-    if(currentStatusElement.innerText === "NOT APPLIED"){
+    if (currentStatusElement.innerText === "NOT APPLIED") {
       const currentTotalNumber = getTextByID("total-number");
 
       const newTotalNumber = Number(currentTotalNumber) - 1;
@@ -232,8 +227,7 @@ for(const deleteButtonElement of deleteButtonElements){
       setTextByID("total-number", newTotalNumber);
 
       deleteParent.remove();
-    }
-    else if(currentStatusElement.innerText === "INTERVIEW"){
+    } else if (currentStatusElement.innerText === "INTERVIEW") {
       const currentTotalNumber = getTextByID("total-number");
       const newTotalNumber = Number(currentTotalNumber) - 1;
       setTextByID("total-number", newTotalNumber);
@@ -244,11 +238,12 @@ for(const deleteButtonElement of deleteButtonElements){
 
       deleteParent.remove();
 
-      if(newInterviewNumber === 0){
+      // If there is no jobs in Interview tab it will enable the No Jobs avaiable section
+
+      if (newInterviewNumber === 0) {
         removeClassByID("interview-jobs", "hidden");
       }
-    }
-    else{
+    } else {
       const currentTotalNumber = getTextByID("total-number");
       const newTotalNumber = Number(currentTotalNumber) - 1;
       setTextByID("total-number", newTotalNumber);
@@ -259,12 +254,11 @@ for(const deleteButtonElement of deleteButtonElements){
 
       deleteParent.remove();
 
-      if(newRejectedNumber === 0){
+      // If there is no jobs in Rejected tab it will enable the No Jobs avaiable section
+
+      if (newRejectedNumber === 0) {
         removeClassByID("rejected-jobs", "hidden");
       }
-
     }
-
-    
-  })
+  });
 }

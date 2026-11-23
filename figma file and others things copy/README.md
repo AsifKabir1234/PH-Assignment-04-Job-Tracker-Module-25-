@@ -1,81 +1,36 @@
-## Welcome To ( সহজ সরল সিম্পল ) Assignment - 4 
-
-
----
-# 📅 No Deadline For 60 marks <span style="color: #22c55e;">( যেকোনো সময়ে সাবমিট করলেই ৬০ মার্কে কাউন্ট হবে এবং এর জন্য কোনো লাইফ ব্যবহার করতে হবে না)</span>
-
-
-# Main Requirements
-
-## Design Part
-
-## Dashboard
-- Website name and Create a dashboard like figma 
-- The section should be responsive for mobile devices. It is totally up to you. 
-
-## Available Jobs Section
-- A title on the left side, jobs count on the right side 
-- 3 different tab  below the section title 
-- Minimum 8 cards with:
-	- companyName
-	- position
-	- location
-	- type
-	- salary
-	- description
-	- 2 buttons: Interview, Rejected
-- By default all the jobs data will show on All tab, and the Interview, Rejected tab will show “No jobs Available” message with a subtitle below and an icon/image on the above
-
-- The section should be responsive for mobile devices. It is totally up to you.
-
---- 
-
-## Functionalities Part
-- Clicking on Interview button on the card 
-    - will add the data on Interview tab 
-    - add the status as Interview.
-    - Will increase the the count of interview in Dashboard 
-
-- Clicking on Rejected button on the card 
-    - will add the data on Rejected tab 
-    - add the status as Rejected.
-    - Will increase the the count of Rejected in Dashboard
-
-- Enable toggle between Interview and rejected button(you can select Rejected button after clicking on Interview, and Interview button after clicking on Rejected button). It will change the tab and dashboard count also. It will show tab wise jobs count on the right.
-
----
-
-# Challenges Requirements
-- Clicking on the delete button will remove that card from the UI, and the count will be deducted from the dashboard card and the main section.
-- No lorem ipsum text on your website. At least 8 meaningful commits in your project.  
-
-- Create a readme file and answer this question on your own. Don’t copy-paste from Google or any AI chatbot. 
-
 
 ## Answers to Questions
 
 ### 1. What is the difference between getElementById, getElementsByClassName, and querySelector / querySelectorAll?
 
+My Answer to Q1 Below Here :- 
+1. By "getElementById" i can get a element which a unique id. To use this every element should have unique element. It returns only a single element
+2. By "getElementsByClassName" i can get those element which have the same class name. It returns a HTML collection.
+3. By "querySelector" i can get the first matching CSS selector. It return a single element. 
+4. By "querySelectorAll" i can get all matching CSS selector. It return a node list.
+
 ### 2. How do you create and insert a new element into the DOM?
 
+My Answer to Q2 Below Here :- 
+1. At first i have to create a element. I can do this with "document.createElement()".
+2. Then i need to insert the element in the html. I can do this with "appendChild()". It will insert this element on a parent element. There is some other methon append(), prepend(), these also similar but prepend append the element on the starting/beginnig of the parent element.
+
 ### 3. What is Event Bubbling? And how does it work?
+My Answer to Q3 Below Here :- 
+Event Bubbling is a method in JS DOM where an event start from the target element(ex : a click on a element) and propagetes upward through parent elements. Then immediate parent untill it reaches the root of the documnet. Basically child -> parent -> parent ... -> root. It is the foundation of "Event Delegation"
+
 
 ### 4. What is Event Delegation in JavaScript? Why is it useful?
 
+My Answer to Q4 Below Here :- 
+"Event Delegation" is a technique where i add a single event listener on a parent element so i dont need to add seperate event lisenters for each child. It works using Event Bubbling machanism where events propagates upward to parent element.
+
+It is useful because it reduces the event listener number, improves the performance, handles the dynamically created elements, makes code cleaner and easier to maintain. 
+
+
 ### 5. What is the difference between preventDefault() and stopPropagation() methods?
 
----
+My Answer to Q5 Below Here :- 
+"preventDefault()" prevents the browser's default behavior for an event.
 
-
-**Technology Stack:**
-- HTML
-- CSS (Vanilla/Tailwind/DaisyUI)
-- JavaScript (Vanilla)
-
-
---- 
-
-## What to submit: 
-
-1. GitHub Repository Link: 
-2. Live Site Link: 
+"stopPropagation()" stops an event from progatting to parent elements during event bubbling
