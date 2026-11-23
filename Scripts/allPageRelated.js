@@ -204,3 +204,50 @@ for(const rejectedButtonElement of rejectedButtonElements){
 }
 
 
+
+
+// Delte Button Related
+const deleteButtonElements = document.querySelectorAll(".delete-button");
+
+for(const deleteButtonElement of deleteButtonElements){
+  deleteButtonElement.addEventListener("click", function(){
+    const deleteParent = deleteButtonElement.parentElement.parentElement;
+
+    const currentStatusElement = deleteParent.querySelector(".job-status");
+
+    if(currentStatusElement.innerText === "NOT APPLIED"){
+      const currentTotalNumber = getTextByID("total-number");
+
+      const newTotalNumber = Number(currentTotalNumber) - 1;
+
+      setTextByID("total-number", newTotalNumber);
+
+      deleteParent.remove();
+    }
+    else if(currentStatusElement.innerText === "INTERVIEW"){
+      const currentTotalNumber = getTextByID("total-number");
+      const newTotalNumber = Number(currentTotalNumber) - 1;
+      setTextByID("total-number", newTotalNumber);
+
+      const currentInterviewNumber = getTextByID("interview-number");
+      const newInterviewNumber = Number(currentInterviewNumber) - 1;
+      setTextByID("interview-number", newInterviewNumber);
+
+      deleteParent.remove();
+    }
+    else{
+      const currentTotalNumber = getTextByID("total-number");
+      const newTotalNumber = Number(currentTotalNumber) - 1;
+      setTextByID("total-number", newTotalNumber);
+
+       const currentRejectedNumber = getTextByID("rejected-number");
+       const newRejectedNumber = Number(currentRejectedNumber) - 1;
+       setTextByID("rejected-number", newRejectedNumber);
+
+       deleteParent.remove();
+
+    }
+
+    
+  })
+}
