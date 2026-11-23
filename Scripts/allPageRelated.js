@@ -122,6 +122,12 @@ for(const interviewButtonElement of interviewButtonElements){
         else{
             currentStatusElement.innerText = "INTERVIEW";
 
+            const rejectedTab = document.getElementById("rejected-tab");
+            
+            if(!rejectedTab.classList.contains("btn-dash")){
+                parentInterview.classList.add("hidden");
+            }
+
             // Updatting both interview number and rejected number
             const currentInterviewNumber = getTextByID("interview-number");
             const newInterviewNumber = Number(currentInterviewNumber) + 1;
@@ -170,6 +176,12 @@ for(const rejectedButtonElement of rejectedButtonElements){
         }
         else{
             currentStatusElement.innerText = "REJECTED";
+
+            const interviewTab = document.getElementById("interview-tab");
+
+            if(!interviewTab.classList.contains("btn-dash")){
+                parentInterview.classList.add("hidden");
+            }
 
             // Updatting both interview number and rejected number
             const currentInterviewNumber = getTextByID("interview-number");
