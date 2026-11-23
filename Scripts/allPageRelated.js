@@ -1,7 +1,6 @@
 // All Tab Button Related
 
 document.getElementById("all-tab").addEventListener("click", function () {
-  addClassByID("all-jobs", "hidden");
   addClassByID("interview-jobs", "hidden");
   addClassByID("rejected-jobs", "hidden");
 
@@ -11,14 +10,20 @@ document.getElementById("all-tab").addEventListener("click", function () {
   addClassByID("interview-tab", "btn-dash");
   addClassByID("rejected-tab", "btn-dash");
 
-
   removeClassByID("all-tab", "btn-dash");
+
+  const jobCards = document.querySelectorAll(".job-card");
+
+  for(const jobCard of jobCards){
+    jobCard.classList.remove("hidden");
+  }
+
+
 });
 
 // Interview Tab Button Related
 
 document.getElementById("interview-tab").addEventListener("click", function () {
-  addClassByID("all-jobs", "hidden");
   addClassByID("interview-jobs", "hidden");
   addClassByID("rejected-jobs", "hidden");
 
@@ -30,13 +35,33 @@ document.getElementById("interview-tab").addEventListener("click", function () {
 
   removeClassByID("interview-tab", "btn-dash");
 
+  const jobCards = document.querySelectorAll(".job-card");
+
+  let counter = 0;
+
+  for(const jobCard of jobCards){
+    const currentStatusElement = jobCard.querySelector(".job-status");
+
+    const currentStatusText = currentStatusElement.innerText;
+
+    jobCard.classList.add("hidden");
+
+    if(currentStatusText === "INTERVIEW"){
+        jobCard.classList.remove("hidden");
+        counter = counter + 1;
+    }
+  }
+
+  if(counter > 0){
+    addClassByID("interview-jobs", "hidden");
+  }
+
   
 });
 
 // Rejected Tab Button Related
 
 document.getElementById("rejected-tab").addEventListener("click", function () {
-  addClassByID("all-jobs", "hidden");
   addClassByID("interview-jobs", "hidden");
   addClassByID("rejected-jobs", "hidden");
 
@@ -47,6 +72,28 @@ document.getElementById("rejected-tab").addEventListener("click", function () {
   addClassByID("rejected-tab", "btn-dash");
 
   removeClassByID("rejected-tab", "btn-dash");
+
+  const jobCards = document.querySelectorAll(".job-card");
+
+  let counter = 0;
+
+  for(const jobCard of jobCards){
+    const currentStatusElement = jobCard.querySelector(".job-status");
+
+    const currentStatusText = currentStatusElement.innerText;
+
+    jobCard.classList.add("hidden");
+
+    if(currentStatusText === "REJECTED"){
+        jobCard.classList.remove("hidden");
+        counter = counter + 1;
+    }
+  }
+
+  if(counter > 0){
+    addClassByID("rejected-jobs", "hidden");
+  }
+
 });
 
 
