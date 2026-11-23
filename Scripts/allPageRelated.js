@@ -138,6 +138,10 @@ for(const interviewButtonElement of interviewButtonElements){
             setTextByID("interview-number", newInterviewNumber);
             setTextByID("rejected-number", newRejectedNumber);
 
+            if(newRejectedNumber === 0){
+              removeClassByID("rejected-jobs", "hidden");
+            }
+
             // Disable the button and active another to handle multiple click problems
 
             interviewButtonElement.disabled = true;
@@ -193,6 +197,10 @@ for(const rejectedButtonElement of rejectedButtonElements){
             setTextByID("interview-number", newInterviewNumber);
             setTextByID("rejected-number", newRejectedNumber);
 
+            if(newInterviewNumber === 0){
+              removeClassByID("interview-jobs", "hidden");
+            }
+
             // Disable the button and active another to handle multiple click problems
 
             const immediateParent = rejectedButtonElement.parentElement;
@@ -200,6 +208,7 @@ for(const rejectedButtonElement of rejectedButtonElements){
             interviewButton.disabled = false;
             rejectedButtonElement.disabled = true;
         }
+
     })
 }
 
@@ -234,17 +243,25 @@ for(const deleteButtonElement of deleteButtonElements){
       setTextByID("interview-number", newInterviewNumber);
 
       deleteParent.remove();
+
+      if(newInterviewNumber === 0){
+        removeClassByID("interview-jobs", "hidden");
+      }
     }
     else{
       const currentTotalNumber = getTextByID("total-number");
       const newTotalNumber = Number(currentTotalNumber) - 1;
       setTextByID("total-number", newTotalNumber);
 
-       const currentRejectedNumber = getTextByID("rejected-number");
-       const newRejectedNumber = Number(currentRejectedNumber) - 1;
-       setTextByID("rejected-number", newRejectedNumber);
+      const currentRejectedNumber = getTextByID("rejected-number");
+      const newRejectedNumber = Number(currentRejectedNumber) - 1;
+      setTextByID("rejected-number", newRejectedNumber);
 
-       deleteParent.remove();
+      deleteParent.remove();
+
+      if(newRejectedNumber === 0){
+        removeClassByID("rejected-jobs", "hidden");
+      }
 
     }
 
