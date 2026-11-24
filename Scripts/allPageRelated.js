@@ -26,6 +26,12 @@ document.getElementById("all-tab").addEventListener("click", function () {
 
   const tabwiseCount2 = document.getElementById("tabwise-count-2");
   tabwiseCount2.classList.add("hidden");
+
+  console.log(jobCards.length);
+
+  if(jobCards.length === 0){
+    removeClassByID("interview-jobs", "hidden");
+  }
 });
 
 // Interview Tab Button Related
@@ -281,8 +287,17 @@ for (const deleteButtonElement of deleteButtonElements) {
 
       // If there is no jobs in Interview tab it will enable the No Jobs avaiable section
 
-      if (newInterviewNumber === 0) {
+      if (newTotalNumber === 0) {
         removeClassByID("interview-jobs", "hidden");
+      }
+
+
+      const interviewTab = document.getElementById("interview-tab");
+
+      if (!interviewTab.classList.contains("btn-dash")) {
+        if(newInterviewNumber === 0){
+          removeClassByID("interview-jobs", "hidden");
+        }
       }
     } 
     else{
@@ -301,9 +316,18 @@ for (const deleteButtonElement of deleteButtonElements) {
 
       // If there is no jobs in Rejected tab it will enable the No Jobs avaiable section
 
-      if (newRejectedNumber === 0) {
+      if (newTotalNumber === 0) {
         removeClassByID("rejected-jobs", "hidden");
       }
+
+      const rejectedTab = document.getElementById("rejected-tab");
+
+      if (!rejectedTab.classList.contains("btn-dash")) {
+        if(newRejectedNumber === 0){
+          removeClassByID("rejected-jobs", "hidden");
+        }
+      }
+
     }
   });
 }
