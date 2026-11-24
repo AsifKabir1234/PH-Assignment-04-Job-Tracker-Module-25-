@@ -20,6 +20,12 @@ document.getElementById("all-tab").addEventListener("click", function () {
   for (const jobCard of jobCards) {
     jobCard.classList.remove("hidden");
   }
+
+  const tabwiseCount1 = document.getElementById("tabwise-count-1");
+  tabwiseCount1.classList.add("hidden");
+
+  const tabwiseCount2 = document.getElementById("tabwise-count-2");
+  tabwiseCount2.classList.add("hidden");
 });
 
 // Interview Tab Button Related
@@ -56,6 +62,13 @@ document.getElementById("interview-tab").addEventListener("click", function () {
       jobCard.classList.remove("hidden");
       counter = counter + 1;
     }
+
+    const tabwiseCount1 = document.getElementById("tabwise-count-1");
+    tabwiseCount1.classList.remove("hidden");
+    tabwiseCount1.innerText = counter;
+
+    const tabwiseCount2 = document.getElementById("tabwise-count-2");
+    tabwiseCount2.classList.remove("hidden");
   }
 
   // This counter will check if there is at least one card which job status is interview. If there is then it will hide the no jobs available section
@@ -93,6 +106,13 @@ document.getElementById("rejected-tab").addEventListener("click", function () {
       jobCard.classList.remove("hidden");
       counter = counter + 1;
     }
+
+    const tabwiseCount1 = document.getElementById("tabwise-count-1");
+    tabwiseCount1.classList.remove("hidden");
+    tabwiseCount1.innerText = counter;
+
+    const tabwiseCount2 = document.getElementById("tabwise-count-2");
+    tabwiseCount2.classList.remove("hidden");
   }
 
   if (counter > 0) {
@@ -151,6 +171,13 @@ for (const interviewButtonElement of interviewButtonElements) {
       const immediateParent = interviewButtonElement.parentElement;
       const rejectedButton = immediateParent.querySelector(".rejected-button");
       rejectedButton.disabled = false;
+
+      const tabwiseCount1 = document.getElementById("tabwise-count-1");
+      const currentCountElement1 = document.getElementById("rejected-number");
+
+      const currentCount1 = currentCountElement1.innerText;
+      tabwiseCount1.innerText = currentCount1;
+
     }
   });
 }
@@ -202,10 +229,15 @@ for (const rejectedButtonElement of rejectedButtonElements) {
       // Disable the button and active another to handle multiple click problems
 
       const immediateParent = rejectedButtonElement.parentElement;
-      const interviewButton =
-        immediateParent.querySelector(".interview-button");
+      const interviewButton = immediateParent.querySelector(".interview-button");
       interviewButton.disabled = false;
       rejectedButtonElement.disabled = true;
+
+      const tabwiseCount1 = document.getElementById("tabwise-count-1");
+      const currentCountElement1 = document.getElementById("interview-number");
+
+      const currentCount1 = currentCountElement1.innerText;
+      tabwiseCount1.innerText = currentCount1;
     }
   });
 }
@@ -219,15 +251,21 @@ for (const deleteButtonElement of deleteButtonElements) {
 
     const currentStatusElement = deleteParent.querySelector(".job-status");
 
-    if (currentStatusElement.innerText === "NOT APPLIED") {
+    if(currentStatusElement.innerText === "NOT APPLIED"){
       const currentTotalNumber = getTextByID("total-number");
 
       const newTotalNumber = Number(currentTotalNumber) - 1;
 
+      if(newTotalNumber === 0){
+        removeClassByID("interview-jobs", "hidden");
+      }
+
       setTextByID("total-number", newTotalNumber);
+      setTextByID("tabwise-count-3", newTotalNumber);
 
       deleteParent.remove();
-    } else if (currentStatusElement.innerText === "INTERVIEW") {
+    } 
+    else if(currentStatusElement.innerText === "INTERVIEW"){
       const currentTotalNumber = getTextByID("total-number");
       const newTotalNumber = Number(currentTotalNumber) - 1;
       setTextByID("total-number", newTotalNumber);
@@ -236,6 +274,9 @@ for (const deleteButtonElement of deleteButtonElements) {
       const newInterviewNumber = Number(currentInterviewNumber) - 1;
       setTextByID("interview-number", newInterviewNumber);
 
+      setTextByID("tabwise-count-3", newTotalNumber);
+      setTextByID("tabwise-count-1", newInterviewNumber);
+
       deleteParent.remove();
 
       // If there is no jobs in Interview tab it will enable the No Jobs avaiable section
@@ -243,7 +284,8 @@ for (const deleteButtonElement of deleteButtonElements) {
       if (newInterviewNumber === 0) {
         removeClassByID("interview-jobs", "hidden");
       }
-    } else {
+    } 
+    else{
       const currentTotalNumber = getTextByID("total-number");
       const newTotalNumber = Number(currentTotalNumber) - 1;
       setTextByID("total-number", newTotalNumber);
@@ -251,6 +293,9 @@ for (const deleteButtonElement of deleteButtonElements) {
       const currentRejectedNumber = getTextByID("rejected-number");
       const newRejectedNumber = Number(currentRejectedNumber) - 1;
       setTextByID("rejected-number", newRejectedNumber);
+
+      setTextByID("tabwise-count-3", newTotalNumber);
+      setTextByID("tabwise-count-1", newRejectedNumber);
 
       deleteParent.remove();
 
